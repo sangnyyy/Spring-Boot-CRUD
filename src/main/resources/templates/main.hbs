@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>스프링부트 게시판</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <!--부트스트랩 css 추가-->
     <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
@@ -38,7 +38,8 @@
 </div>
 
 <!-- Modal 영역 -->
-<div class="modal fade" id="savePostsModal" tabindex="-1" role="dialog" aria-labelledby="savePostsLabel" aria-hidden="true">
+<div class="modal fade" id="savePostsModal" tabindex="-1" role="dialog" aria-labelledby="savePostsLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -76,7 +77,35 @@
 <script src="/js/lib/bootstrap.min.js"></script>
 
 <!--custom js 추가-->
-<script src="/js/app/main.js"></script>
+<!--<script src="/js/app/main.js"></script>-->
+<script>
+    var save = function () {
+        var data = {
+            title: $('#title').val(),
+            author: $('#author').val(),
+            content: $('#content').val()
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/posts',
+            // dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function () {
+            alert("게시글 등록 완료!");
+            location.reload();
+        }).fail(function (error) {
+            console.log(error)
+        });
+
+    };
+
+    $('#btn-save').on('click', function () {
+        save();
+    });
+
+
+</script>
 
 </body>
 </html>
