@@ -18,6 +18,7 @@ public class WebRestController {
 
     @PostMapping("/posts")
     public void savePosts(@RequestBody PostsSaveRequestDTO dto){
+        System.out.println("Here!");
         postsService.save(dto);
     }
 
