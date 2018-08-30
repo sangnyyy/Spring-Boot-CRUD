@@ -1,6 +1,7 @@
 package com.sml.springbootcrud.service;
 
 import com.sml.springbootcrud.domain.posts.PostsRepository;
+import com.sml.springbootcrud.domain.posts.dto.posts.PostsDeleteRequestDTO;
 import com.sml.springbootcrud.domain.posts.dto.posts.PostsMainResponseDTO;
 import com.sml.springbootcrud.domain.posts.dto.posts.PostsSaveRequestDTO;
 import lombok.AllArgsConstructor;
@@ -26,5 +27,10 @@ public class PostsService {
         return postsRepository.findAllDesc()
                 .map(PostsMainResponseDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete(PostsDeleteRequestDTO dto){
+        postsRepository.deleteByTitle(dto.getTitle());
     }
 }
