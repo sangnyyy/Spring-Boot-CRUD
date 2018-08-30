@@ -37,6 +37,7 @@ public class PostServiceTest {
                 .title("테스트 타이틀")
                 .build();
 
+
         //when
         postsService.save(dto);
 

@@ -1,17 +1,20 @@
 spring:
   profiles:
-    active: local # 기본 환경 선택
+    active: mydb # 기본 환경 선택
 
 # local 환경
 ---
 spring:
-  profiles: local
+  profiles: mydb
   datasource:
-    data: classpath:data-h2.sql # 시작할때 실행시킬 script
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://smldb.czxi1b10dlvz.ap-northeast-2.rds.amazonaws.com:3306/todos_board?useSSL=false
+    username: root
+    password: password!
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-  h2:
-    console:
-      enabled: true
+    generate-ddl: false
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
