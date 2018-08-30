@@ -12,6 +12,7 @@
 <h1>스프링부트 게시판</h1>
 <div class="col-md-12">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#savePostsModal">글 등록</button>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePostsModal">글 삭제</button>
     <br/>
     <br/>
     <!-- 목록 출력 영역 -->
@@ -72,6 +73,32 @@
     </div>
 </div>
 
+<div class="modal fade" id="deletePostsModal" tabindex="-1" role="dialog" aria-labelledby="deletePostsLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePostsLabel">게시글 삭제</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="title">제목</label>
+                        <input type="text" class="form-control" id="title2" placeholder="삭제하고자 하는 글의 제목을 입력하세요">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" id="btn-delete">삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--부트스트랩 js, jquery 추가-->
 <script src="/js/lib/jquery.min.js"></script>
 <script src="/js/lib/bootstrap.min.js"></script>
@@ -102,6 +129,30 @@
 
     $('#btn-save').on('click', function () {
         save();
+    });
+
+    var del = function(){
+        var data = {
+            title : $('#title2').val()
+        };
+        $.ajax({
+            type: 'DELETE',
+            method : "DELETE",
+            url: '/posts',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function () {
+            alert("게시글 삭제 완료!");
+            location.reload();
+        }).fail(function (error) {
+            console.log(error)
+        });
+
+
+    }
+
+    $('#btn-delete').on('click', function () {
+        del();
     });
 
 
