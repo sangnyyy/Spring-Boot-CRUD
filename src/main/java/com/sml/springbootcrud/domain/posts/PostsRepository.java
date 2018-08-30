@@ -13,8 +13,12 @@ public interface PostsRepository extends JpaRepository<Posts, Long> {
             "ORDER BY p.id DESC")
     Stream<Posts> findAllDesc();
 
+//    @Modifying
+//    @Query("DELETE FROM Posts p WHERE title = ?1")
+//    void deleteByTitle(String title);
+
     @Modifying
-    @Query("DELETE FROM Posts p WHERE title = ?1")
-    void deleteByTitle(String title);
+    @Query("DELETE FROM Posts p WHERE title = :title")
+    void deleteByTitle(@Param("title") String title);
 
 }
